@@ -4,13 +4,20 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const session = require("express-session");
+require("dotenv").config();
 
-const indexRouter = require("./routes/index");
+const { adminGenerator } = require("./services/user-service");
 
 const app = express();
-mongoose.connect("mongodb://127.0.0.1:27017/finalProject_blog").then(() => {
-  console.log("DB is connected..");
-});
+const indexRouter = require("./routes/index");
+
+mongoose
+  .connect(`mongodb://127.0.0.1:27017/${process.env.DB_NAME}`)
+  .then(() => {
+    console.log("[i] DB is connected..");
+    adminGenerator();
+  });
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -20,6 +27,17 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// Set Session
+const oneDay = 1000 * 60 * 60 * 24;
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    saveUninitialized: true,
+    cookie: { maxAge: oneDay },
+    resave: false,
+  })
+);
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
@@ -37,7 +55,10 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  res.json({
+    status: err.status === 500 ? "Error" : "Fail",
+    message: err?.message,
+  });
 });
 
 module.exports = app;
