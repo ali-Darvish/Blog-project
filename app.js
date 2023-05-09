@@ -7,11 +7,9 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 require("dotenv").config();
 
-var indexRouter = require("./routes/index");
-
 const app = express();
 const indexRouter = require("./routes/index");
-const viewsRouter = require("./routes/views-route");
+const { adminGenerator } = require("./services/user-service");
 
 mongoose
   .connect(`mongodb://127.0.0.1:27017/${process.env.DB_NAME}`)
