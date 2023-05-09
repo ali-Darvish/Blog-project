@@ -11,6 +11,7 @@ const { adminGenerator } = require("./services/user-service");
 
 const app = express();
 const indexRouter = require("./routes/index");
+const viewsRouter = require("./routes/views-route");
 
 mongoose
   .connect(`mongodb://127.0.0.1:27017/${process.env.DB_NAME}`)

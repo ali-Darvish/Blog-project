@@ -43,7 +43,7 @@ const UserSchema = new Schema(
     },
     gender: {
       type: String,
-      enum: ["Male", "Female", "not-set"],
+      enum: ["male", "female", "not-set"],
       default: "not-set",
     },
     phoneNumber: {
