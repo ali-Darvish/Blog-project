@@ -17,4 +17,8 @@ const adminGenerator = async () => {
   await admin.save();
 };
 
-module.exports = { adminGenerator };
+const findUserById = (userId) => {
+  return User.findById(userId);
+};
+
+module.exports = { adminGenerator, findUserById };

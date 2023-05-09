@@ -52,10 +52,7 @@ const loginUser = async (req, res, next) => {
 
 const logoutUser = (req, res, next) => {
   req.session.destroy();
-  res.json({
-    status: "success",
-    message: "Successfully logged out.",
-  });
+  res.redirect("/login");
 };
 
 module.exports = { createUser, loginUser, logoutUser };
