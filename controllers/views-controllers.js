@@ -6,4 +6,9 @@ const getLoginPage = (req, res, next) => {
   res.render("login-page");
 };
 
-module.exports = { getRegisterPage, getLoginPage };
+const getDashboardPage = (req, res, next) => {
+  if(req.session)
+  res.render("user-dashboard");
+};
+
+module.exports = { getRegisterPage, getLoginPage, getDashboardPage };

@@ -40,15 +40,14 @@ const loginUser = async (req, res, next) => {
   const loginInfo = new UserLoginDto(req.body);
 
   const targetUser = await User.findOne({ username: loginInfo.username });
-  if (!targetUser) return next(createError(404, "User not found"));
+  if (!targetUser)
+    return res.redirect("/login?errorMessage=Username Or Password Is Wrong!");
 
   const passwordMatch = await targetUser.validatePassword(loginInfo.password);
-  if (!passwordMatch) return next(createError(404, "User not found"));
+  if (!passwordMatch)
+    return res.redirect("/login?errorMessage=Username Or Password Is Wrong!");
   req.session.userId = targetUser._id;
-  res.json({
-    status: "success",
-    data: loginInfo,
-  });
+  res.redirect("/dashboard");
 };
 
 const logoutUser = (req, res, next) => {
