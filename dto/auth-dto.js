@@ -1,6 +1,6 @@
-function UserLoginDto({ username, password }) {
+function UserSignInDto({ username, password }) {
   this.username = username;
   this.password = password;
 }
 
-module.exports = { UserLoginDto };
+module.exports = { UserSignInDto };

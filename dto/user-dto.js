@@ -14,6 +14,18 @@ function CreateUserDto({
   this.phoneNumber = phoneNumber;
 }
 
+function UpdateUserDto({
+  firstname = null,
+  lastname = null,
+  username = null,
+  gender = "not-set",
+}) {
+  this.firstname = firstname;
+  this.lastname = lastname;
+  this.username = username;
+  this.gender = gender;
+}
+
 function ReadUserDto({
   _id,
   firstname,
@@ -32,4 +44,4 @@ function ReadUserDto({
   this.role = role;
 }
 
-module.exports = { CreateUserDto, ReadUserDto };
+module.exports = { CreateUserDto, ReadUserDto, UpdateUserDto };

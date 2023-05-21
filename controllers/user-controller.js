@@ -4,9 +4,10 @@ const { ReadUserDto } = require("../dto/user-dto");
 const { ResponseDto } = require("../dto/response-dto");
 const { createNewUser } = require("../services/user-service");
 
-const createUser = async (_req, res, next) => {
+const createUser = async (req, res, next) => {
   try {
     const result = await createNewUser(res.locals.user);
+    req.session.userId = result._id;
     res
       .status(201)
       .json(
