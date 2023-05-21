@@ -44,4 +44,8 @@ const updateUser = async (req, res, next) => {
     next(createError(500, "Internal server error."));
   }
 };
+
+const deleteUser = async (req, res, next) => {
+  
+};
 module.exports = { createUser, updateUser };

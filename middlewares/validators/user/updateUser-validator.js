@@ -3,7 +3,6 @@ const createError = require("http-errors");
 
 const { UpdateUserDto } = require("../../../dto/user-dto");
 const {
-  findUserById,
   findUserByUsername,
 } = require("../../../services/user-service");
 
@@ -18,13 +17,8 @@ const updateUserValidationSchema = Joi.object({
 });
 
 const updateUserValidator = async (req, res, next) => {
-  const { id } = req.params;
+  const targetUser = res.locals.user;
   try {
-    let targetUser = await findUserById(id);
-    if (!targetUser) {
-      return next(createError(404, "User not found"));
-    }
-
     const updatedInfo = new UpdateUserDto(req.body);
     const { error } = updateUserValidationSchema.validate(updatedInfo, {
       abortEarly: false,
