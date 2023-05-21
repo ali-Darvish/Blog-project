@@ -20,10 +20,10 @@ function UpdateUserDto({
   username = null,
   gender = "not-set",
 }) {
-  this.firstname = firstname;
-  this.lastname = lastname;
-  this.username = username;
-  this.gender = gender;
+  if (!!firstname) this.firstname = firstname;
+  if (!!lastname) this.lastname = lastname;
+  if (!!username) this.username = username;
+  if (!!gender) this.gender = gender;
 }
 
 function ReadUserDto({

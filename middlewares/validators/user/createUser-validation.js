@@ -17,7 +17,6 @@ const createUserValidationSchema = Joi.object({
   password: Joi.string().required().min(8).regex(passwordRegex),
   gender: Joi.string().valid("male", "female", "not-set").default("not-set"),
   phoneNumber: Joi.string().required().regex(phoneNumberRegex),
-  role: Joi.string().valid("blogger", "admin").default("blogger"),
 });
 
 const createUserValidator = async (req, res, next) => {
