@@ -9,14 +9,9 @@ require("dotenv").config();
 
 const app = express();
 const indexRouter = require("./routes/index");
-const { adminGenerator } = require("./services/user-service");
+const dataBaseConnection = require("./database/database-connection");
 
-mongoose
-  .connect(`mongodb://127.0.0.1:27017/${process.env.DB_NAME}`)
-  .then(() => {
-    console.log("[i] DB is connected..");
-    adminGenerator();
-  });
+dataBaseConnection();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -37,6 +32,7 @@ app.use(
     resave: false,
   })
 );
+
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
@@ -51,7 +47,6 @@ app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
-
   // render the error page
   res.status(err.status || 500);
   res.json({

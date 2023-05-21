@@ -31,9 +31,7 @@ const UserSchema = new Schema(
       required: true,
       validate: {
         validator: (value) => {
-          if (
-            !value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/g)
-          ) {
+          if (!value.match(/^(?=.*[A-Za-z])(?=.*\d).*$/)) {
             return false;
           }
           return true;

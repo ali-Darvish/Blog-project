@@ -1,15 +1,13 @@
 const express = require("express");
 const {
-  getRegisterPage,
-  getLoginPage,
+  getAuthPage,
   getDashboardPage,
-} = require("../controllers/views-controllers");
+} = require("../controllers/views-controller");
 
 const router = express.Router();
 
 // Get Register Page
-router.get("/register", getRegisterPage);
-router.get("/login", getLoginPage);
+router.get("/auth", getAuthPage);
 router.get("/dashboard", getDashboardPage);
 
 module.exports = router;

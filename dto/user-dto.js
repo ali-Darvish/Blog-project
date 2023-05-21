@@ -5,7 +5,6 @@ function CreateUserDto({
   password,
   gender = "not-set",
   phoneNumber,
-  role = "blogger",
 }) {
   this.firstname = firstname;
   this.lastname = lastname;
@@ -13,7 +12,6 @@ function CreateUserDto({
   this.password = password;
   this.gender = gender;
   this.phoneNumber = phoneNumber;
-  this.role = role;
 }
 
 function ReadUserDto({
@@ -34,9 +32,4 @@ function ReadUserDto({
   this.role = role;
 }
 
-function UserLoginDto({ username, password }) {
-  this.username = username;
-  this.password = password;
-}
-
-module.exports = { CreateUserDto, ReadUserDto, UserLoginDto };
+module.exports = { CreateUserDto, ReadUserDto };

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="http://localhost:3000/stylesheets/auth-page.css"
+    />
+    <title>Login Now</title>
+  </head>
+  <body class="position-relative">
+    <div class="container-fluid m-0 p-0 row">
+      <div class="col-5 bg-warning d-inline-block vh-100"></div>
+      <div id="right-background" class="col-7 d-inline-block vh-100"></div>
+    </div>
+    <div class="row">
+      <div
+        id="form-container"
+        class="col-lg-6 py-0 ps-3 row position-absolute top-50 start-50 translate-middle"
+      >
+        <div id="message-card" class="card px-0 rounded-4 shadow ms-5 col-lg-5">
+          <div class="card-body">
+            <p class="card-text text-center fw-bold fs-4">
+              Wellcome To My Blog
+            </p>
+          </div>
+          <div class="p-3">
+            <img
+              src="http://localhost:3000/images/login-image.jpg"
+              class="card-img-top rounded-4"
+              alt="User Login Artwork"
+            />
+          </div>
+
+          <div class="card-body row ps-4">
+            <p class="card-text col-9">
+              Please Login Here To Access Your Account
+            </p>
+            <div class="col-3 p-0 m-0">
+              <i class="bi bi-arrow-return-right fs-1 text-warning ms-0"></i>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="form-card"
+          class="card rounded-4 bg-warning shadow ms-3 col-lg-5"
+        >
+          <div class="card-body mt-4 d-flex flex-column align-items-start">
+            <div class="row">
+              <div class="col-10">
+                <p class="card-text fw-bold fs-4 mb-1">Log In</p>
+                <p class="card-text mt-0">Sign In To Continue</p>
+              </div>
+              <div class="col-2">
+                <i class="bi bi-person-vcard-fill fs-1 text-end"></i>
+              </div>
+            </div>
+
+            <div id="input-container" class="row mx-auto rounded-pill mt-4">
+              <div class="col-2 mx-0">
+                <i class="bi bi-person-fill fs-5"></i>
+              </div>
+              <div class="col-10 mx-0">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="login-username"
+                  placeholder="Username"
+                />
+              </div>
+            </div>
+            <div id="input-container" class="row mx-auto rounded-pill mt-3">
+              <div class="col-2 mx-0">
+                <i class="bi bi-lock-fill fs-5"></i>
+              </div>
+              <div class="col-10 mx-0">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="login-password"
+                  placeholder="Password"
+                />
+              </div>
+            </div>
+            <div
+              id="signin-btn"
+              class="row w-75 mx-auto rounded-pill bg-dark mt-4 fs-5 p-2 submit-btn"
+            >
+              <span class="col-8 text-light">Sign In</span>
+              <i
+                class="bi bi-box-arrow-in-right col-4 text-warning fw-bold"
+              ></i>
+            </div>
+            <div class="row mt-5">
+              <div class="col-12">
+                <p id="create-account-link">
+                  Not registered yet?
+                  <a id="create-account" href="#register">Create an account</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div
+        id="form-container"
+        class="col-lg-6 py-0 ps-3 row position-absolute top-50 start-50 translate-middle"
+      >
+        <div
+          id="register-message-card"
+          class="card px-0 rounded-4 shadow ms-5 col-lg-5 d-none"
+        >
+          <div class="card-body">
+            <p class="card-text text-center fw-bold fs-4">Register New User</p>
+          </div>
+          <div class="p-3">
+            <img
+              src="http://localhost:3000/images/register-image.jpg"
+              class="card-img-top rounded-4"
+              alt="User Login Artwork"
+            />
+          </div>
+
+          <div class="card-body row ps-4">
+            <p class="card-text col-9">
+              Here You Can Register A New Blogger Easily.
+            </p>
+            <div class="col-3 p-0 m-0">
+              <i class="bi bi-arrow-return-right fs-1 text-warning ms-0"></i>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="register-form-card"
+          class="card rounded-4 bg-warning shadow ms-3 col-lg-5 d-none"
+        >
+          <div class="card-body d-flex flex-column align-items-start">
+            <div class="row px-2">
+              <div class="col-10">
+                <p class="card-text fw-bold fs-4 mb-1">Register</p>
+                <p class="card-text mt-0">Fill Out The Form.</p>
+              </div>
+              <div class="col-2 p-0">
+                <i class="bi bi-person-fill-add fs-1 text-end"></i>
+              </div>
+            </div>
+
+            <div id="input-container" class="row mx-auto rounded-pill mt-4">
+              <div class="col-2 mx-0">
+                <i class="bi bi-person-badge-fill fs-5"></i>
+              </div>
+              <div class="col-10 mx-0">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="firstname"
+                  name="firstname"
+                  placeholder="First Name"
+                />
+              </div>
+            </div>
+            <div id="input-container" class="row mx-auto rounded-pill mt-2">
+              <div class="col-2 mx-0">
+                <i class="bi bi-person-badge fs-5"></i>
+              </div>
+              <div class="col-10 mx-0">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="lastname"
+                  name="lastname"
+                  placeholder="Last Name"
+                />
+              </div>
+            </div>
+            <div id="input-container" class="row mx-auto rounded-pill mt-2">
+              <div class="col-2 mx-0">
+                <i class="bi bi-person-fill fs-5"></i>
+              </div>
+              <div class="col-10 mx-0">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  name="username"
+                  placeholder="Username"
+                />
+              </div>
+            </div>
+            <div id="input-container" class="row mx-auto rounded-pill mt-2">
+              <div class="col-2 mx-0">
+                <i class="bi bi-key-fill fs-5"></i>
+              </div>
+              <div class="col-10 mx-0">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                  placeholder="Password"
+                />
+              </div>
+            </div>
+            <div id="input-container" class="row mx-auto rounded-pill mt-2">
+              <div class="col-2 mx-0">
+                <i class="bi bi-phone fs-5"></i>
+              </div>
+              <div class="col-10 mx-0">
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  placeholder="Phone Number"
+                />
+              </div>
+            </div>
+            <div
+              id="input-container"
+              class="row mx-auto w-100 rounded-pill mt-2"
+            >
+              <div class="col-2 mx-0">
+                <i class="bi bi-gender-ambiguous fs-5"></i>
+              </div>
+              <div class="col-10 mx-0">
+                <div>
+                  <select class="form-select border-0">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option selected>Not Set</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="row w-75 mx-auto rounded-pill bg-dark mt-4 fs-5 p-2 submit-btn"
+            >
+              <span class="col-8 text-light">Sign Up</span>
+              <i class="bi bi-arrow-right col-4 text-warning fw-bold"></i>
+            </div>
+            <div class="row mx-auto mt-4">
+              <p id="login-account-link" class="text-center">
+                Already Have An Account?
+                <a id="login-account" href="#login">Sing In</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script
+    src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="http://localhost:3000/javascripts/auth-page.js"></script>
+</html>
