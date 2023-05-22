@@ -25,6 +25,10 @@ function UpdateUserDto({
   if (!!username) this.username = username;
   if (!!gender) this.gender = gender;
 }
+function UpdateUserPasswordDto({ currentPassword, newPassword }) {
+  this.currentPassword = currentPassword;
+  this.newPassword = newPassword;
+}
 
 function ReadUserDto({
   _id,
@@ -44,4 +48,4 @@ function ReadUserDto({
   this.role = role;
 }
 
-module.exports = { CreateUserDto, ReadUserDto, UpdateUserDto };
+module.exports = { CreateUserDto, ReadUserDto, UpdateUserDto,UpdateUserPasswordDto };

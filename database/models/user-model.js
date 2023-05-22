@@ -60,6 +60,10 @@ const UserSchema = new Schema(
       lowercase: true,
       trim: true,
     },
+    avatar: {
+      type: String,
+      default: "user-default-avatar.png",
+    },
   },
   {
     timestamps: true,

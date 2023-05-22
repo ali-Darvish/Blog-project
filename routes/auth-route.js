@@ -8,11 +8,15 @@ const {
 const {
   userSignInValidator,
 } = require("../middlewares/validators/auth/signin-validation");
+const {
+  isSignedIn,
+  notSignedIn,
+} = require("../middlewares/validators/auth/isSignedIn-validation");
 
 const router = express.Router();
 
-router.post("/register", createUserValidator, createUser);
-router.post("/signin", userSignInValidator, userSignIn);
-router.get("/signout", userSignOut);
+router.post("/register", notSignedIn, createUserValidator, createUser);
+router.post("/signin", notSignedIn, userSignInValidator, userSignIn);
+router.get("/signout", isSignedIn, userSignOut);
 
 module.exports = router;
