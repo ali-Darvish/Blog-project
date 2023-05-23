@@ -1,4 +1,5 @@
-function ReadArticleDto({ title, brief, thumbnail, createdAt }) {
+function ReadArticleDto({ _id, title, brief, thumbnail, createdAt }) {
+  this.articleId = _id;
   this.title = title;
   this.brief = brief;
   this.thumbnail = thumbnail;

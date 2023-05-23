@@ -34,5 +34,20 @@ const getAllUserArticles = async (req, res, next) => {
     next(createError(500, "Internal server error"));
   }
 };
-
-module.exports = { getAllUserArticles, createArticle };
+const getArticleById = async (req, res, next) => {
+  try {
+    const targetArticle = res.locals.article;
+    console.log(targetArticle);
+    const articleAuthor = targetArticle.author.toString();
+    const currentUser = req.session.userId;
+    res.status(200).json({
+      editable: articleAuthor === currentUser ? true : false,
+      response: new ResponseDto(
+        "success",
+        "Article found successfully",
+        new ReadArticleDto(targetArticle)
+      ),
+    });
+  } catch (error) {}
+};
+module.exports = { getAllUserArticles, createArticle, getArticleById };
