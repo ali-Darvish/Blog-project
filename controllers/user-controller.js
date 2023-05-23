@@ -1,5 +1,6 @@
 const createError = require("http-errors");
 const { unlink } = require("node:fs/promises");
+const { join } = require("node:path");
 
 const { ReadUserDto, UpdateUserDto } = require("../dto/user-dto");
 const { ResponseDto } = require("../dto/response-dto");
@@ -10,7 +11,6 @@ const {
   normalizeAvatar,
 } = require("../services/user-service");
 const { uploadAvatar } = require("../utils/multer");
-const { join } = require("node:path");
 
 const getAllUsers = async (req, res, next) => {
   try {
@@ -138,6 +138,7 @@ const deleteUser = async (req, res, next) => {
     return next(createError(500, "Internal server error."));
   }
 };
+
 module.exports = {
   getAllUsers,
   getUserById,

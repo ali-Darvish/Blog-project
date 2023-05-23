@@ -24,8 +24,12 @@ const createUserValidator = async (req, res, next) => {
   const { error } = createUserValidationSchema.validate(newUserInfo, {
     abortEarly: false,
   });
-
-  
+  if (!!error) {
+    const errorMessages = error.details
+      .map((error) => error.message)
+      .join("\n");
+    return next(createError(400, errorMessages));
+  }
   try {
     const duplicateUsername = await findUserByUsername(newUserInfo.username);
     if (!!duplicateUsername) {

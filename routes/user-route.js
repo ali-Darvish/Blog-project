@@ -22,24 +22,24 @@ const {
 } = require("../middlewares/validators/auth/isSignedIn-validation");
 
 const router = express.Router();
-router.get("/", isSignedIn, getAllUsers);
-router.get("/:id", isSignedIn, existUserValidator, getUserById);
+router.get("/", getAllUsers);
+router.get("/:id", existUserValidator, getUserById);
 router.patch(
   "/:id",
-  isSignedIn,
+
   existUserValidator,
   updateUserValidator,
   updateUser
 );
-router.delete("/:id", isSignedIn, existUserValidator, deleteUser);
+router.delete("/:id", existUserValidator, deleteUser);
 
 router.patch(
   "/password/:id",
-  isSignedIn,
+
   existUserValidator,
   updateUserPasswordValidator,
   changeUserPassword
 );
-router.post("/avatar/:id", isSignedIn, existUserValidator, changeUserAvatar);
+router.post("/avatar/:id", existUserValidator, changeUserAvatar);
 
 module.exports = router;
