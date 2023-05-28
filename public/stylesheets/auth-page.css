@@ -58,3 +58,17 @@ div.submit-btn:hover i {
 div.submit-btn:hover {
   cursor: pointer;
 }
+#error-tooltip {
+  position: absolute;
+  width: 25%;
+  font-size: 14px;
+  right: 0;
+  opacity: 85%;
+}
+#success-tooltip {
+  position: absolute;
+  width: 25%;
+  font-size: 14px;
+  right: 0;
+  opacity: 85%;
+}

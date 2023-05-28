@@ -27,9 +27,37 @@
     <title>Login Now</title>
   </head>
   <body class="position-relative">
-    <div class="container-fluid m-0 p-0 row">
+    <div class="container-fluid m-0 p-0 row position-relative">
       <div class="col-5 bg-warning d-inline-block vh-100"></div>
       <div id="right-background" class="col-7 d-inline-block vh-100"></div>
+      <div
+        id="error-tooltip"
+        class="card border-0 bg-transparent mt-3 me-3 d-inline-block d-none"
+      >
+        <div class="card-body bg-danger rounded-4">
+          <h5
+            class="card-title text-light fs-6 border-bottom border-light border-opacity-50 pb-2"
+          >
+            <i class="bi bi-shield-fill-exclamation"></i
+            ><span id="error-title"></span>
+          </h5>
+          <p id="error-text" class="card-text text-light"></p>
+        </div>
+      </div>
+      <div
+        id="success-tooltip"
+        class="card border-0 bg-transparent mt-3 me-3 d-inline-block d-none"
+      >
+        <div class="card-body bg-success rounded-4">
+          <h5
+            class="card-title text-light fs-6 border-bottom border-light border-opacity-50 pb-2"
+          >
+            <i class="bi bi-shield-fill-check"></i
+            ><span id="success-title"> success title</span>
+          </h5>
+          <p id="success-text" class="card-text text-light">success text</p>
+        </div>
+      </div>
     </div>
     <div class="row">
       <div

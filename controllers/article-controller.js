@@ -48,6 +48,8 @@ const getArticleById = async (req, res, next) => {
         new ReadArticleDto(targetArticle)
       ),
     });
-  } catch (error) {}
+  } catch (error) {
+    next(createError(500, "Internal server error."));
+  }
 };
 module.exports = { getAllUserArticles, createArticle, getArticleById };
