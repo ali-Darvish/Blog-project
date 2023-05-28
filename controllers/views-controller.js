@@ -5,4 +5,8 @@ const getDashboardPage = async (req, res, next) => {
   res.status(200).render("user-dashboard");
 };
 
-module.exports = { getAuthPage, getDashboardPage };
+const getExplorePage = async (req, res, next) => {
+  res.status(200).render("explore-page");
+};
+
+module.exports = { getAuthPage, getDashboardPage, getExplorePage };
