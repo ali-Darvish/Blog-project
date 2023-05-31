@@ -38,6 +38,7 @@ function ReadUserDto({
   gender = "not-set",
   phoneNumber,
   role = "blogger",
+  avatar,
 }) {
   this.userId = _id;
   this.firstname = firstname;
@@ -46,6 +47,12 @@ function ReadUserDto({
   this.gender = gender;
   this.phoneNumber = phoneNumber;
   this.role = role;
+  this.avatar = avatar;
 }
 
-module.exports = { CreateUserDto, ReadUserDto, UpdateUserDto,UpdateUserPasswordDto };
+module.exports = {
+  CreateUserDto,
+  ReadUserDto,
+  UpdateUserDto,
+  UpdateUserPasswordDto,
+};

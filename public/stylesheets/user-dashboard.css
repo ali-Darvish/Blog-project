@@ -2,7 +2,7 @@
 
 body {
   font-family: "Roboto", sans-serif;
-  background-color: #eee;
+  background-color: #fff;
 }
 * {
   margin: 0;
@@ -72,7 +72,7 @@ i {
   left: 0px;
   transition-duration: 0.6s;
   transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  background-color: #eee;
+  background-color: #fff;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   margin-top: 10px;
@@ -82,7 +82,7 @@ i {
   position: absolute;
   width: 25px;
   height: 25px;
-  background-color: #eee;
+  background-color: #fff;
   bottom: 10px;
 }
 .hori-selector .right {
@@ -164,5 +164,25 @@ i {
 }
 
 #user-avatar-container {
-  z-index: 500;
+  z-index: 100;
+}
+
+#error-tooltip {
+  z-index: 2000;
+  position: absolute;
+  width: 25%;
+  font-size: 14px;
+  right: 0;
+  bottom: 0;
+
+  opacity: 95%;
+}
+#success-tooltip {
+  z-index: 2000;
+  position: absolute;
+  width: 25%;
+  font-size: 14px;
+  right: 0;
+  bottom: 0;
+  opacity: 95%;
 }

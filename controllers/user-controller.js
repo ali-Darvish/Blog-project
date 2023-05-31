@@ -130,6 +130,7 @@ const changeUserAvatar = async (req, res, next) => {
 
 const deleteUser = async (req, res, next) => {
   try {
+    req.session.destroy();
     const result = await deleteUserById(res.locals.user._id);
     return res
       .status(204)

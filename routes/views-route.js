@@ -11,7 +11,6 @@ const {
 
 const router = express.Router();
 
-// Get Register Page
 router.get("/auth", isClientSignedIn, getAuthPage);
 router.get("/dashboard", notClientSignedIn, getDashboardPage);
 router.get("/explore", isClientSignedIn, getExplorePage);
