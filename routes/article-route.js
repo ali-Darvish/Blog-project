@@ -7,6 +7,7 @@ const {
   createArticle,
   getArticleById,
   updateArticle,
+  deleteUserArticle,
 } = require("../controllers/article-controller");
 const {
   createArticleValidator,
@@ -35,6 +36,14 @@ router.patch(
   isHisArticle,
   updateArticleValidator,
   updateArticle
+);
+
+router.delete(
+  "/:id",
+  isSignedIn,
+  existArticleValidator,
+  isHisArticle,
+  deleteUserArticle
 );
 
 module.exports = router;

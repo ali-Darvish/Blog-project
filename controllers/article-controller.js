@@ -10,6 +10,7 @@ const {
   findAllUserArticles,
   createNewArticle,
   countAllUserArticles,
+  deleteArticleById,
 } = require("../services/article-service");
 const { ResponseDto } = require("../dto/response-dto");
 
@@ -94,9 +95,21 @@ const updateArticle = async (req, res, next) => {
   }
 };
 
+const deleteUserArticle = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const result = await deleteArticleById(id);
+    res
+      .status(204)
+      .json(new ResponseDto("success", "Article deleted successfully", result));
+  } catch (error) {
+    next(createError(500, "Internal server error"));
+  }
+};
 module.exports = {
   getAllUserArticles,
   createArticle,
   getArticleById,
   updateArticle,
+  deleteUserArticle,
 };

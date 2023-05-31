@@ -27,10 +27,14 @@ const findArticleById = (articleId) => {
   });
 };
 
+const deleteArticleById = (articleId) => {
+  return Article.findByIdAndDelete(articleId);
+};
 module.exports = {
   findAllUserArticles,
   countAllUserArticles,
   createNewArticle,
   findUserArticleById,
   findArticleById,
+  deleteArticleById,
 };
