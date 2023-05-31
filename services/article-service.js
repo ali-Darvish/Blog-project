@@ -12,7 +12,7 @@ const findAllUserArticles = (id, skip, limit) => {
     .skip(skip)
     .limit(limit);
 };
-const countAllUserDocuments = (id) => {
+const countAllUserArticles = (id) => {
   return Article.countDocuments({ author: id });
 };
 const findUserArticleById = (userId, articleId) => {
@@ -29,7 +29,7 @@ const findArticleById = (articleId) => {
 
 module.exports = {
   findAllUserArticles,
-  countAllUserDocuments,
+  countAllUserArticles,
   createNewArticle,
   findUserArticleById,
   findArticleById,

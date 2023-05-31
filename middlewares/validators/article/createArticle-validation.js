@@ -2,8 +2,6 @@ const Joi = require("joi");
 const createError = require("http-errors");
 const { CreateArticleDto } = require("../../../dto/article-dto");
 
-//   author,
-
 const createArticleValidationSchema = Joi.object({
   title: Joi.string().required().trim().min(3),
   brief: Joi.string().trim().min(3).optional(),

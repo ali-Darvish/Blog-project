@@ -25,6 +25,7 @@ function UpdateUserDto({
   if (!!username) this.username = username;
   if (!!gender) this.gender = gender;
 }
+
 function UpdateUserPasswordDto({ currentPassword, newPassword }) {
   this.currentPassword = currentPassword;
   this.newPassword = newPassword;

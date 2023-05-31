@@ -1,10 +1,15 @@
 const createError = require("http-errors");
 
-const { ReadArticleDto, CreateArticleDto } = require("../dto/article-dto");
+const {
+  ReadArticleDto,
+  CreateArticleDto,
+  DetailArticleDto,
+  UpdateArticleDto,
+} = require("../dto/article-dto");
 const {
   findAllUserArticles,
   createNewArticle,
-  countAllUserDocuments,
+  countAllUserArticles,
 } = require("../services/article-service");
 const { ResponseDto } = require("../dto/response-dto");
 
@@ -26,7 +31,7 @@ const getAllUserArticles = async (req, res, next) => {
       Number(skip),
       Number(limit)
     );
-    const total = await countAllUserDocuments(req.session.userId);
+    const total = await countAllUserArticles(req.session.userId);
     if (!userArticles.length) {
       return next(createError(404, "Articles not found."));
     }
@@ -49,7 +54,6 @@ const getAllUserArticles = async (req, res, next) => {
 const getArticleById = async (req, res, next) => {
   try {
     const targetArticle = res.locals.article;
-    console.log(targetArticle);
     const articleAuthor = targetArticle.author.toString();
     const currentUser = req.session.userId;
     res.status(200).json({
@@ -57,11 +61,42 @@ const getArticleById = async (req, res, next) => {
       response: new ResponseDto(
         "success",
         "Article found successfully",
-        new ReadArticleDto(targetArticle)
+        new DetailArticleDto(targetArticle)
       ),
     });
   } catch (error) {
     next(createError(500, "Internal server error."));
   }
 };
-module.exports = { getAllUserArticles, createArticle, getArticleById };
+
+const updateArticle = async (req, res, next) => {
+  const targetArticle = res.locals.article;
+  const newArticleData = new UpdateArticleDto(req.body);
+
+  targetArticle.title = newArticleData.title ?? targetArticle.title;
+  targetArticle.thumbnail = newArticleData.thumbnail ?? targetArticle.thumbnail;
+  targetArticle.brief = newArticleData.brief ?? targetArticle.brief;
+  targetArticle.content = newArticleData.content ?? targetArticle.content;
+  targetArticle.images = newArticleData.images ?? targetArticle.images;
+  try {
+    const result = await targetArticle.save();
+    res
+      .status(200)
+      .json(
+        new ResponseDto(
+          "success",
+          "Article updated Successfully",
+          new DetailArticleDto(result)
+        )
+      );
+  } catch (error) {
+    next(createError(500, "Internal server error."));
+  }
+};
+
+module.exports = {
+  getAllUserArticles,
+  createArticle,
+  getArticleById,
+  updateArticle,
+};

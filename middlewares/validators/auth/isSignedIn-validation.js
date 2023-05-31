@@ -6,6 +6,7 @@ const isSignedIn = async (req, res, next) => {
   }
   next();
 };
+
 const notSignedIn = async (req, res, next) => {
   if (!!req.session.userId) {
     return next(
