@@ -186,3 +186,7 @@ i {
   bottom: 0;
   opacity: 95%;
 }
+
+#signoutBtn {
+  z-index: 99;
+}

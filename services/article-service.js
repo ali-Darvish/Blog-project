@@ -6,8 +6,14 @@ const createNewArticle = (newArticleInfo) => {
   return newArticle.save();
 };
 
-const findAllUserArticles = (id) => {
-  return Article.find({ author: id });
+const findAllUserArticles = (id, skip, limit) => {
+  return Article.find({ author: id })
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit);
+};
+const countAllUserDocuments = (id) => {
+  return Article.countDocuments({ author: id });
 };
 const findUserArticleById = (userId, articleId) => {
   return Article.find({
@@ -23,6 +29,7 @@ const findArticleById = (articleId) => {
 
 module.exports = {
   findAllUserArticles,
+  countAllUserDocuments,
   createNewArticle,
   findUserArticleById,
   findArticleById,
