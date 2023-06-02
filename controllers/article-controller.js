@@ -6,13 +6,21 @@ const {
   DetailArticleDto,
   UpdateArticleDto,
 } = require("../dto/article-dto");
+
 const {
   findAllUserArticles,
   createNewArticle,
   countAllUserArticles,
   deleteArticleById,
 } = require("../services/article-service");
+
 const { ResponseDto } = require("../dto/response-dto");
+const { multerUpload } = require("../utils/multer");
+
+const uploadArticleImages = multerUpload.fields([
+  { name: "thumbnail", maxCount: 1 },
+  { name: "images", maxCount: 5 },
+]);
 
 const createArticle = async (req, res, next) => {
   const newArticleInfo = new CreateArticleDto(req.body);
@@ -52,6 +60,7 @@ const getAllUserArticles = async (req, res, next) => {
     next(createError(500, "Internal server error"));
   }
 };
+
 const getArticleById = async (req, res, next) => {
   try {
     const targetArticle = res.locals.article;
@@ -106,6 +115,7 @@ const deleteUserArticle = async (req, res, next) => {
     next(createError(500, "Internal server error"));
   }
 };
+
 module.exports = {
   getAllUserArticles,
   createArticle,

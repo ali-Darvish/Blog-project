@@ -3,6 +3,7 @@ const { unlink } = require("node:fs/promises");
 
 const User = require("../database/models/user-model");
 const { CreateUserDto } = require("../dto/user-dto");
+const { join } = require("node:path");
 
 const createNewUser = (newUserInfo) => {
   const newUser = new User(newUserInfo);
@@ -41,14 +42,23 @@ const adminGenerator = async () => {
 };
 
 const normalizeAvatar = async (file) => {
-  const filePath = file.path;
-  const avatar = await Jimp.read(filePath);
+  const { filename, path } = file;
+  const avatar = await Jimp.read(path);
   avatar
     .cover(256, 256, Jimp.HORIZONTAL_ALIGN_CENTER, Jimp.VERTICAL_ALIGN_MIDDLE)
     .quality(60)
-    .write(`${filePath.replace(/(\..+)$/, ".png")}`);
-  const newPath = file.filename.replace(/(\..+)$/, ".png");
-  await unlink(filePath);
+    .write(
+      join(
+        __dirname,
+        "..",
+        "public",
+        "images",
+        "avatars",
+        `${filename.replace(/(\..+)$/, ".png")}`
+      )
+    );
+  const newPath = filename.replace(/(\..+)$/, ".png");
+  await unlink(path);
   return newPath;
 };
 

@@ -10,7 +10,7 @@ const {
   findAllUsers,
   normalizeAvatar,
 } = require("../services/user-service");
-const { uploadAvatar } = require("../utils/multer");
+const { multerUpload } = require("../utils/multer");
 
 const getAllUsers = async (req, res, next) => {
   try {
@@ -97,35 +97,26 @@ const changeUserPassword = async (req, res, next) => {
   }
 };
 
-const changeUserAvatar = async (req, res, next) => {
-  const uploadUserAvatar = uploadAvatar.single("avatar");
-  uploadUserAvatar(req, res, async (err) => {
-    if (!!err) return next(createError(500, "Upload error." + err.message));
-    try {
-      const avatarFileName = await normalizeAvatar(req.file);
-      const targetUser = res.locals.user;
+const uploadUserAvatar = multerUpload.single("avatar");
 
-      if (targetUser.avatar !== "user-default-avatar.png") {
-        await unlink(
-          join(
-            __dirname,
-            "..",
-            "public",
-            "images",
-            "avatars",
-            targetUser.avatar
-          )
-        );
-      }
-      targetUser.avatar = avatarFileName;
-      await targetUser.save();
-      res
-        .status(200)
-        .json(new ResponseDto("success", "Avatar updated successfully"));
-    } catch (error) {
-      next(createError(500, "Internal server error." + error.message));
+const changeUserAvatar = async (req, res, next) => {
+  try {
+    const avatarFileName = await normalizeAvatar(req.file);
+    const targetUser = res.locals.user;
+
+    if (targetUser.avatar !== "user-default-avatar.png") {
+      await unlink(
+        join(__dirname, "..", "public", "images", "avatars", targetUser.avatar)
+      );
     }
-  });
+    targetUser.avatar = avatarFileName;
+    await targetUser.save();
+    res
+      .status(200)
+      .json(new ResponseDto("success", "Avatar updated successfully"));
+  } catch (error) {
+    next(createError(500, "Internal server error." + error.message));
+  }
 };
 
 const deleteUser = async (req, res, next) => {
@@ -147,5 +138,6 @@ module.exports = {
   updateUser,
   deleteUser,
   changeUserPassword,
+  uploadUserAvatar,
   changeUserAvatar,
 };

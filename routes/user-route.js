@@ -7,6 +7,7 @@ const {
   getAllUsers,
   getUserById,
   changeUserAvatar,
+  uploadUserAvatar,
 } = require("../controllers/user-controller");
 const {
   updateUserValidator,
@@ -40,6 +41,11 @@ router.patch(
   updateUserPasswordValidator,
   changeUserPassword
 );
-router.post("/avatar/:id", existUserValidator, changeUserAvatar);
+router.post(
+  "/avatar/:id",
+  existUserValidator,
+  uploadUserAvatar,
+  changeUserAvatar
+);
 
 module.exports = router;

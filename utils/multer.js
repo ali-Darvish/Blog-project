@@ -1,28 +1,32 @@
 const multer = require("multer");
 const { join } = require("path");
 
-const avatarValidMimetype = ["image/png", "image/jpeg"];
+const imageValidMimeTypes = ["image/png", "image/jpeg"];
 
-const avatarStorage = multer.diskStorage({
+const multerStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, join(__dirname, "..", "public", "images", "avatars"));
+    cb(null, join(__dirname, "..", "public", "images"));
   },
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}_${file.originalname}`);
   },
 });
 
-const uploadAvatar = multer({
-  storage: avatarStorage,
+const multerUpload = multer({
+  storage: multerStorage,
   fileFilter: function (req, file, cb) {
-    if (!avatarValidMimetype.includes(file.mimetype)) {
+    if (!imageValidMimeTypes.includes(file.mimetype)) {
       return cb(new Error("Only PNG and JPEG images are allowed"));
     }
     return cb(null, true);
   },
   limits: {
-    fileSize: 1024 * 1024,
+    fileSize: 2 * 1024 * 1024,
   },
 });
 
-module.exports = { uploadAvatar };
+module.exports = { multerUpload };
+
+// tinymce
+// CKEditor
+// vev
