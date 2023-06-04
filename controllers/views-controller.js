@@ -12,4 +12,13 @@ const getExplorePage = (req, res, next) => {
   res.status(200).render("explore-page");
 };
 
-module.exports = { getAuthPage, getDashboardPage, getExplorePage };
+const getArticlePage = (req, res, next) => {
+  res.status(200).render("article-page");
+};
+
+module.exports = {
+  getAuthPage,
+  getDashboardPage,
+  getExplorePage,
+  getArticlePage,
+};

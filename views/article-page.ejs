@@ -56,6 +56,7 @@
         <p id="success-text" class="card-text text-light">success text</p>
       </div>
     </div>
+
     <nav class="navbar navbar-expand-custom bg-warning p-0">
       <a class="navbar-brand navbar-logo" href="#"
         ><img src="/images/myLogo.png" alt="navbar Logo" width="44px"
@@ -82,10 +83,7 @@
           </li>
 
           <li class="nav-item">
-            <a
-              class="nav-link"
-              onclick='renderMyArticlesPage("<%= _id %>")'
-              href="javascript:void(0);"
+            <a class="nav-link" onclick="" href="javascript:void(0);"
               ><i class="bi bi-card-text"></i>My Articles</a
             >
           </li>
@@ -105,111 +103,23 @@
         </a>
         <div id="user-avatar-container" class="ms-2 me-2">
           <img
-            src="/images/avatars/<%= avatar %>"
+            src="/images/avatars/1685726582368_prof.png"
             class="rounded-circle border border-2 border-light"
             width="44px"
             alt=""
-            onclick='renderModalForUpdateAvatar("<%= _id %>")'
+            onclick=""
             style="cursor: pointer"
           />
         </div>
       </div>
     </nav>
-    <main id="dashboard-content">
-      <section
-        id="blogger-info"
-        class="container-lg border border-secondary bg-dark rounded-4 mt-4 p-3"
-      >
-        <div id="blogger-info-detail" class="row">
-          <div class="col-4 p-3 text-light">
-            <span class="text-warning">First Name: </span><%= firstname %>
-          </div>
-          <div class="col-4 p-3 text-light">
-            <span class="text-warning">Last Name: </span><%= lastname %>
-          </div>
-          <div class="col-4 p-3 text-light">
-            <span class="text-warning">Username: </span><%= username %>
-          </div>
-          <div class="col-4 p-3 text-light">
-            <span class="text-warning">Gender: </span><%= gender %>
-          </div>
-          <div class="col-8 p-3 text-light">
-            <span class="text-warning">Phone Number(s): </span><%= phoneNumber
-            %>
-          </div>
-        </div>
-      </section>
-      <section
-        id="blogger-actions"
-        class="container-lg mt-3 py-3 px-0 bg-transparent"
-      >
-        <div id="blogger-action-detail" class="row">
-          <div class="col-4 py-2 px-0">
-            <div class="container">
-              <button
-                id="update-profile"
-                class="card rounded-4 btn btn-outline-primary w-100 shadow-sm"
-                data-bs-target="#dashboard-modal"
-                onclick='renderModalForUpdateProfile("<%= _id %>")'
-              >
-                <div class="card-body mx-auto">
-                  <i class="bi bi-pen fs-1"></i>
-                  <p class="card-text">Edit Your Profile</p>
-                </div>
-              </button>
-            </div>
-          </div>
-          <div class="col-4 py-2 px-0">
-            <div class="container">
-              <button
-                class="card rounded-4 btn btn-outline-primary w-100 shadow-sm"
-                data-bs-target="#dashboard-modal"
-                onclick='renderModalForUpdatePassword("<%= _id %>")'
-              >
-                <div class="card-body mx-auto">
-                  <i class="bi bi-key fs-1"></i>
-                  <p class="card-text">Change Your Password</p>
-                </div>
-              </button>
-            </div>
-          </div>
-          <div class="col-4 py-2 px-0">
-            <div class="container">
-              <button
-                class="card rounded-4 btn btn-outline-primary w-100 shadow-sm"
-                data-bs-target="#dashboard-modal"
-                onclick='renderModalForUpdateAvatar("<%= _id %>")'
-              >
-                <div class="card-body mx-auto">
-                  <i class="bi bi-person-square fs-1"></i>
-                  <p class="card-text">Change Your Avatar</p>
-                </div>
-              </button>
-            </div>
-          </div>
-          <div class="col-4 py-2 px-0">
-            <div class="container">
-              <button
-                class="card rounded-4 btn btn-outline-danger w-100 shadow-sm"
-                data-bs-target="#dashboard-modal"
-                onclick='renderModalForDeleteAccount("<%= _id %>")'
-              >
-                <div class="card-body mx-auto">
-                  <i class="bi bi-person-x fs-1"></i>
-                  <p class="card-text">Delete Your Account</p>
-                </div>
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-    <main id="my-articles-page">
+    <main id="article-page">
       <div
-        id="my-articles-container"
+        id="article-container"
         class="container-lg row mx-auto mt-4 p-3 ps-0"
       >
-    </div>
+        
+      </div>
     </main>
     <!-- Modal -->
     <div
@@ -251,5 +161,5 @@
     crossorigin="anonymous"
   ></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="/javascripts/user-dashboard.js"></script>
+  <script src="/javascripts/article-page.js"></script>
 </html>

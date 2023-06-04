@@ -5,6 +5,7 @@ function ReadArticleDto({ _id, title, brief, thumbnail, createdAt }) {
   this.thumbnail = thumbnail;
   this.createdAt = createdAt;
 }
+
 function DetailArticleDto({
   _id,
   title,

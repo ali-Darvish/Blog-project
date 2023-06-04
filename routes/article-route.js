@@ -9,6 +9,7 @@ const {
   getArticleById,
   updateArticle,
   deleteUserArticle,
+  uploadArticleImages,
 } = require("../controllers/article-controller");
 
 const {
@@ -29,9 +30,15 @@ const {
 
 const router = express.Router();
 
-router.post("/", isSignedIn, createArticleValidator, createArticle);
+router.post(
+  "/",
+  isSignedIn,
+  uploadArticleImages,
+  createArticleValidator,
+  createArticle
+);
 
-router.get("/", isSignedIn, getAllUserArticles);
+router.get("/me", isSignedIn, getAllUserArticles);
 router.get("/:id", isSignedIn, existArticleValidator, getArticleById);
 
 router.patch(

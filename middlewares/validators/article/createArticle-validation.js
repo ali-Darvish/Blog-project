@@ -5,7 +5,7 @@ const { CreateArticleDto } = require("../../../dto/article-dto");
 const createArticleValidationSchema = Joi.object({
   title: Joi.string().required().trim().min(3),
   brief: Joi.string().trim().min(3).optional(),
-  thumbnail: Joi.string().required().trim().min(3),
+  thumbnail: Joi.string(),
   content: Joi.string().required().min(3),
   images: Joi.array().optional(),
   author: Joi.string().required(),

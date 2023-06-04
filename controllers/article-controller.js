@@ -12,19 +12,21 @@ const {
   createNewArticle,
   countAllUserArticles,
   deleteArticleById,
+  normalizeThumbnail,
+  findArticleById,
 } = require("../services/article-service");
 
 const { ResponseDto } = require("../dto/response-dto");
 const { multerUpload } = require("../utils/multer");
 
-const uploadArticleImages = multerUpload.fields([
-  { name: "thumbnail", maxCount: 1 },
-  { name: "images", maxCount: 5 },
-]);
+const uploadArticleImages = multerUpload.single("thumbnail");
 
 const createArticle = async (req, res, next) => {
   const newArticleInfo = new CreateArticleDto(req.body);
   newArticleInfo.author = req.session.userId;
+
+  const avatarFileName = await normalizeThumbnail(req.file);
+  newArticleInfo.thumbnail = avatarFileName;
   const result = await createNewArticle(newArticleInfo);
   res
     .status(201)
@@ -66,12 +68,17 @@ const getArticleById = async (req, res, next) => {
     const targetArticle = res.locals.article;
     const articleAuthor = targetArticle.author.toString();
     const currentUser = req.session.userId;
+    const populatedArticle = await findArticleById(targetArticle._id).populate(
+      "author",
+      { firstname: 1, lastname: 1, avatar: 1, _id: 0 }
+    );
+
     res.status(200).json({
       editable: articleAuthor === currentUser ? true : false,
       response: new ResponseDto(
         "success",
         "Article found successfully",
-        new DetailArticleDto(targetArticle)
+        new DetailArticleDto(populatedArticle)
       ),
     });
   } catch (error) {
@@ -118,6 +125,7 @@ const deleteUserArticle = async (req, res, next) => {
 
 module.exports = {
   getAllUserArticles,
+  uploadArticleImages,
   createArticle,
   getArticleById,
   updateArticle,

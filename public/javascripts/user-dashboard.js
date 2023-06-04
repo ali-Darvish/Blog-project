@@ -44,6 +44,7 @@ $(".navbar-toggler").click(function () {
   setTimeout(function () {
     test();
   });
+  $("#my-articles-container").hide();
 });
 
 // --------------add active class-on another-page move----------
@@ -453,4 +454,54 @@ const deleteUserAccount = async (userId) => {
       error?.response?.data?.message
     );
   }
+};
+
+const renderMyArticlesPage = (userId) => {
+  $("#dashboard-content").fadeOut(500);
+  $("#my-articles-container").fadeIn(500);
+  getArticles();
+};
+
+const getArticles = async () => {
+  try {
+    const response = await axios.get(`http://localhost:3000/api/article/me`);
+    const articles = response.data.data;
+    renderArticlesList(articles);
+  } catch (error) {
+    return renderResponseError(
+      error?.response?.data?.status,
+      error?.response?.data?.message
+    );
+  }
+};
+
+const renderArticlesList = (articlesArray) => {
+  $("#my-articles-container").html("");
+  const articleContainerBody = articlesArray
+    .map((article) => {
+      return `
+    <div class="card mb-3 col-12">
+      <div class="row g-0">
+        <div class="col-md-4">
+         <img src="/images/thumbnails/${article.thumbnail}"
+         class="img-fluid rounded-start" alt="${article.articleId}'s thumbnail">
+       </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">${article.title}</h5>
+         <p class="card-text">${article.brief}</p>
+         <p class="card-text"><small class="text-muted">${article.createdAt}</small></p>
+         <a type="button" class="btn btn-warning" href="http://localhost:3000/article/${article.articleId}">Read More</a>
+      </div>
+    </div>
+  </div>
+</div>
+    `;
+    })
+    .join("");
+  $("#my-articles-container").html(articleContainerBody);
+};
+const renderMyDashboard = () => {
+  $("#my-articles-container").fadeOut(500);
+  $("#dashboard-content").fadeIn(500);
 };
