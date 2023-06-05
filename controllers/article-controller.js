@@ -1,5 +1,5 @@
 const createError = require("http-errors");
-
+const { unlink } = require("node:fs/promises");
 const {
   ReadArticleDto,
   CreateArticleDto,
@@ -14,19 +14,26 @@ const {
   deleteArticleById,
   normalizeThumbnail,
   findArticleById,
+  normalizeImages,
 } = require("../services/article-service");
 
 const { ResponseDto } = require("../dto/response-dto");
 const { multerUpload } = require("../utils/multer");
+const { join } = require("node:path");
 
-const uploadArticleImages = multerUpload.single("thumbnail");
+const uploadArticleImages = multerUpload.fields([
+  { name: "thumbnail", maxCount: 1 },
+  { name: "images", maxCount: 5 },
+]);
 
 const createArticle = async (req, res, next) => {
   const newArticleInfo = new CreateArticleDto(req.body);
   newArticleInfo.author = req.session.userId;
-
-  const avatarFileName = await normalizeThumbnail(req.file);
+  const avatarFileName = await normalizeThumbnail(req.files.thumbnail[0]);
   newArticleInfo.thumbnail = avatarFileName;
+  const imagesFileName = await normalizeImages(req.files.images);
+  newArticleInfo.images = imagesFileName;
+  console.log(newArticleInfo);
   const result = await createNewArticle(newArticleInfo);
   res
     .status(201)
@@ -91,10 +98,35 @@ const updateArticle = async (req, res, next) => {
   const newArticleData = new UpdateArticleDto(req.body);
 
   targetArticle.title = newArticleData.title ?? targetArticle.title;
-  targetArticle.thumbnail = newArticleData.thumbnail ?? targetArticle.thumbnail;
+
+  if (!!req.files.thumbnail[0]) {
+    const newThumbnail = await normalizeThumbnail(req.files.thumbnail[0]);
+    await unlink(
+      join(
+        __dirname,
+        "..",
+        "public",
+        "images",
+        "thumbnails",
+        targetArticle.thumbnail
+      )
+    );
+    targetArticle.thumbnail = newThumbnail;
+  }
+
   targetArticle.brief = newArticleData.brief ?? targetArticle.brief;
   targetArticle.content = newArticleData.content ?? targetArticle.content;
-  targetArticle.images = newArticleData.images ?? targetArticle.images;
+
+  if (!!req.files.images) {
+    const newImages = await normalizeImages(req.files.images);
+    for (const image of targetArticle.images) {
+      await unlink(
+        join(__dirname, "..", "public", "images", "articleImages", image)
+      );
+    }
+    targetArticle.images = newImages;
+  }
+
   try {
     const result = await targetArticle.save();
     res

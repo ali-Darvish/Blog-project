@@ -39,7 +39,7 @@ const normalizeThumbnail = async (file) => {
   const { filename, path } = file;
   const thumbnail = await Jimp.read(path);
   thumbnail
-    .cover(800, 600, Jimp.HORIZONTAL_ALIGN_CENTER, Jimp.VERTICAL_ALIGN_MIDDLE)
+    .cover(900, 600, Jimp.HORIZONTAL_ALIGN_CENTER, Jimp.VERTICAL_ALIGN_MIDDLE)
     .quality(75)
     .write(
       join(
@@ -55,6 +55,35 @@ const normalizeThumbnail = async (file) => {
   await unlink(path);
   return newPath;
 };
+const normalizeImages = async (filesArray) => {
+  const newFilePaths = [];
+  for (const file of filesArray) {
+    const { filename, path } = file;
+    const image = await Jimp.read(path);
+    image
+      .cover(
+        1200,
+        600,
+        Jimp.HORIZONTAL_ALIGN_CENTER,
+        Jimp.VERTICAL_ALIGN_MIDDLE
+      )
+      .quality(100)
+      .write(
+        join(
+          __dirname,
+          "..",
+          "public",
+          "images",
+          "articleImages",
+          `${filename.replace(/(\..+)$/, ".png")}`
+        )
+      );
+    const newPath = filename.replace(/(\..+)$/, ".png");
+    await unlink(path);
+    newFilePaths.push(newPath);
+  }
+  return newFilePaths;
+};
 
 module.exports = {
   findAllUserArticles,
@@ -64,4 +93,5 @@ module.exports = {
   findArticleById,
   deleteArticleById,
   normalizeThumbnail,
+  normalizeImages,
 };

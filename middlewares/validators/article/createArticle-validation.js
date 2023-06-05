@@ -24,6 +24,7 @@ const createArticleValidator = async (req, res, next) => {
         .join("\n");
       return next(createError(400, errorMessages));
     }
+
     next();
   } catch (error) {
     next(createError(500, "Internal Server Error"));

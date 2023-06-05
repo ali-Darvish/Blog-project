@@ -500,7 +500,9 @@ const renderArticlesList = (articlesArray) => {
     })
     .join("");
   $("#my-articles-container").html(articleContainerBody);
+  test();
 };
+
 const renderMyDashboard = () => {
   $("#my-articles-container").fadeOut(500);
   $("#dashboard-content").fadeIn(500);

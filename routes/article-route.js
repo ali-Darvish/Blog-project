@@ -46,6 +46,7 @@ router.patch(
   isSignedIn,
   existArticleValidator,
   isHisArticle,
+  uploadArticleImages,
   updateArticleValidator,
   updateArticle
 );

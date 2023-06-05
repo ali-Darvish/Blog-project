@@ -21,8 +21,7 @@ const updateArticleValidator = async (req, res, next) => {
       .join("\n");
     return next(createError(400, errorMessages));
   }
-
-  return next();
+  next();
 };
 
 module.exports = { updateArticleValidator };
