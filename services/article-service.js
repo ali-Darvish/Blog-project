@@ -3,11 +3,20 @@ const Article = require("../database/models/article-model");
 
 const { join } = require("node:path");
 const { unlink } = require("node:fs/promises");
+const { apiFeatures } = require("../utils/api-features");
 
 const createNewArticle = (newArticleInfo) => {
   const newArticle = new Article(newArticleInfo);
 
   return newArticle.save();
+};
+
+const findAllArticles = (queryString) => {
+  const articleModel = new apiFeatures(Article.find(), queryString)
+    .sort()
+    .paginate()
+    .search();
+  return articleModel.modelQuery;
 };
 
 const findAllUserArticles = (id, skip, limit) => {
@@ -16,15 +25,18 @@ const findAllUserArticles = (id, skip, limit) => {
     .skip(skip)
     .limit(limit);
 };
+
 const countAllUserArticles = (id) => {
   return Article.countDocuments({ author: id });
 };
+
 const findUserArticleById = (userId, articleId) => {
   return Article.find({
     author: userId,
     _id: articleId,
   });
 };
+
 const findArticleById = (articleId) => {
   return Article.findOne({
     _id: articleId,
@@ -86,6 +98,7 @@ const normalizeImages = async (filesArray) => {
 };
 
 module.exports = {
+  findAllArticles,
   findAllUserArticles,
   countAllUserArticles,
   createNewArticle,

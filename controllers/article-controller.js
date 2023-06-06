@@ -15,11 +15,13 @@ const {
   normalizeThumbnail,
   findArticleById,
   normalizeImages,
+  findAllArticles,
 } = require("../services/article-service");
 
 const { ResponseDto } = require("../dto/response-dto");
 const { multerUpload } = require("../utils/multer");
 const { join } = require("node:path");
+const { apiFeatures } = require("../utils/api-features");
 
 const uploadArticleImages = multerUpload.fields([
   { name: "thumbnail", maxCount: 1 },
@@ -27,17 +29,38 @@ const uploadArticleImages = multerUpload.fields([
 ]);
 
 const createArticle = async (req, res, next) => {
-  const newArticleInfo = new CreateArticleDto(req.body);
-  newArticleInfo.author = req.session.userId;
-  const avatarFileName = await normalizeThumbnail(req.files.thumbnail[0]);
-  newArticleInfo.thumbnail = avatarFileName;
-  const imagesFileName = await normalizeImages(req.files.images);
-  newArticleInfo.images = imagesFileName;
-  console.log(newArticleInfo);
-  const result = await createNewArticle(newArticleInfo);
-  res
-    .status(201)
-    .json(new ResponseDto("success", "Article created successfully", result));
+  try {
+    const newArticleInfo = new CreateArticleDto(req.body);
+    newArticleInfo.author = req.session.userId;
+    console.log(req.files);
+    const avatarFileName = await normalizeThumbnail(req.files.thumbnail[0]);
+    newArticleInfo.thumbnail = avatarFileName;
+    const imagesFileName = await normalizeImages(req.files.images);
+    newArticleInfo.images = imagesFileName;
+    const result = await createNewArticle(newArticleInfo);
+    res
+      .status(201)
+      .json(new ResponseDto("success", "Article created successfully", result));
+  } catch (error) {
+    next(createError(500, "Internal server error." + "\n" + error));
+  }
+};
+
+const getAllArticles = async (req, res, next) => {
+  const articles = await findAllArticles(req.query);
+  res.json(articles);
+  // try {
+  //   const articles = await findAllArticles();
+  //   res.status(200).json(
+  //     new ResponseDto(
+  //       "success",
+  //       "articles found successfully",
+  //       articles.map((article) => new ReadArticleDto(article))
+  //     )
+  //   );
+  // } catch (error) {
+  //   next(createError(500, "Internal server error."));
+  // }
 };
 
 const getAllUserArticles = async (req, res, next) => {
@@ -156,10 +179,11 @@ const deleteUserArticle = async (req, res, next) => {
 };
 
 module.exports = {
+  getAllArticles,
   getAllUserArticles,
+  getArticleById,
   uploadArticleImages,
   createArticle,
-  getArticleById,
   updateArticle,
   deleteUserArticle,
 };

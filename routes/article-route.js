@@ -10,6 +10,7 @@ const {
   updateArticle,
   deleteUserArticle,
   uploadArticleImages,
+  getAllArticles,
 } = require("../controllers/article-controller");
 
 const {
@@ -38,6 +39,7 @@ router.post(
   createArticle
 );
 
+router.get("/", getAllArticles);
 router.get("/me", isSignedIn, getAllUserArticles);
 router.get("/:id", isSignedIn, existArticleValidator, getArticleById);
 
