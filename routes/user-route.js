@@ -27,7 +27,7 @@ router.get("/", getAllUsers);
 router.get("/:id", existUserValidator, getUserById);
 router.patch(
   "/:id",
-
+  isSignedIn,
   existUserValidator,
   updateUserValidator,
   updateUser
@@ -36,13 +36,14 @@ router.delete("/:id", existUserValidator, deleteUser);
 
 router.patch(
   "/password/:id",
-
+  isSignedIn,
   existUserValidator,
   updateUserPasswordValidator,
   changeUserPassword
 );
 router.post(
   "/avatar/:id",
+  isSignedIn,
   existUserValidator,
   uploadUserAvatar,
   changeUserAvatar

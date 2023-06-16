@@ -14,6 +14,8 @@ const createCommentValidationSchema = Joi.object({
 const createCommentValidator = async (req, res, next) => {
   try {
     const commentInfo = new CreateCommentDto(req.body);
+    commentInfo.author = req.session.userId;
+
     const { error } = createCommentValidationSchema.validate(commentInfo, {
       abortEarly: false,
     });

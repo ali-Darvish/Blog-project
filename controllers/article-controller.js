@@ -47,20 +47,18 @@ const createArticle = async (req, res, next) => {
 };
 
 const getAllArticles = async (req, res, next) => {
-  const articles = await findAllArticles(req.query);
-  res.json(articles);
-  // try {
-  //   const articles = await findAllArticles();
-  //   res.status(200).json(
-  //     new ResponseDto(
-  //       "success",
-  //       "articles found successfully",
-  //       articles.map((article) => new ReadArticleDto(article))
-  //     )
-  //   );
-  // } catch (error) {
-  //   next(createError(500, "Internal server error."));
-  // }
+  try {
+    const articles = await findAllArticles(req.query);
+    res.status(200).json(
+      new ResponseDto(
+        "success",
+        "articles found successfully",
+        articles.map((article) => new ReadArticleDto(article))
+      )
+    );
+  } catch (error) {
+    next(createError(500, "Internal server error."));
+  }
 };
 
 const getAllUserArticles = async (req, res, next) => {

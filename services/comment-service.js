@@ -1,8 +1,36 @@
 const CommentModel = require("../database/models/comment-model");
+const { apiFeatures } = require("../utils/api-features");
 
 const createNewComment = (newArticleInfo) => {
   const newComment = new CommentModel(newArticleInfo);
   return newComment.save();
 };
 
-module.exports = { createNewComment };
+const findArticleComments = (articleId, queryString) => {
+  const articleComments = new apiFeatures(
+    CommentModel.find({ article: articleId }),
+    queryString
+  )
+    .paginate()
+    .sort()
+    .search();
+  return articleComments.modelQuery.populate("author", {
+    firstname: 1,
+    lastname: 1,
+    avatar: 1,
+  });
+};
+
+const findCommentById = (commentId) => {
+  return CommentModel.findOne({ _id: commentId });
+};
+
+const deleteCommentById = (commentId) => {
+  return CommentModel.findOneAndDelete({ _id: commentId });
+};
+module.exports = {
+  findArticleComments,
+  findCommentById,
+  createNewComment,
+  deleteCommentById,
+};

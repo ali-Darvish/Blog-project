@@ -13,12 +13,15 @@ const createNewUser = (newUserInfo) => {
 const findAllUsers = () => {
   return User.find({ username: { $ne: "admin" } });
 };
+
 const findUserById = (userId) => {
   return User.findById(userId);
 };
+
 const findUserByUsername = (username) => {
   return User.findOne({ username });
 };
+
 const findUserByPhoneNumber = (phoneNumber) => {
   return User.findOne({ phoneNumber });
 };
