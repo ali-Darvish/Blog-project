@@ -16,21 +16,23 @@ const createUserValidationSchema = Joi.object({
   username: Joi.string().required().trim().min(3).max(30),
   password: Joi.string().required().min(8).regex(passwordRegex),
   gender: Joi.string().valid("male", "female", "not-set").default("not-set"),
-  phoneNumber: Joi.string().required().regex(phoneNumberRegex),
+  phoneNumber: Joi.array()
+    .required()
+    .items(Joi.string().regex(phoneNumberRegex).required()),
 });
 
 const createUserValidator = async (req, res, next) => {
-  const newUserInfo = new CreateUserDto(req.body);
-  const { error } = createUserValidationSchema.validate(newUserInfo, {
-    abortEarly: false,
-  });
-  if (!!error) {
-    const errorMessages = error.details
-      .map((error) => error.message)
-      .join("\n");
-    return next(createError(400, errorMessages));
-  }
   try {
+    const newUserInfo = new CreateUserDto(req.body);
+    const { error } = createUserValidationSchema.validate(newUserInfo, {
+      abortEarly: false,
+    });
+    if (!!error) {
+      const errorMessages = error.details
+        .map((error) => error.message)
+        .join("\n");
+      return next(createError(400, errorMessages));
+    }
     const duplicateUsername = await findUserByUsername(newUserInfo.username);
     if (!!duplicateUsername) {
       return next(
