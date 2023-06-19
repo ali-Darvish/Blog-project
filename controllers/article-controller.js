@@ -22,6 +22,7 @@ const { ResponseDto } = require("../dto/response-dto");
 const { multerUpload } = require("../utils/multer");
 const { join } = require("node:path");
 const { apiFeatures } = require("../utils/api-features");
+const { deleteAllArticleComments } = require("../services/comment-service");
 
 const uploadArticleImages = multerUpload.fields([
   { name: "thumbnail", maxCount: 1 },
@@ -167,10 +168,11 @@ const updateArticle = async (req, res, next) => {
 const deleteUserArticle = async (req, res, next) => {
   const { id } = req.params;
   try {
+    const deleteCommentsResult = await deleteAllArticleComments(id);
     const result = await deleteArticleById(id);
     res
       .status(204)
-      .json(new ResponseDto("success", "Article deleted successfully", result));
+      .json(new ResponseDto("success", "Article deleted successfully"));
   } catch (error) {
     next(createError(500, "Internal server error"));
   }

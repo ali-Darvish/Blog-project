@@ -1,3 +1,4 @@
+const commentModel = require("../database/models/comment-model");
 const CommentModel = require("../database/models/comment-model");
 const { apiFeatures } = require("../utils/api-features");
 
@@ -28,9 +29,13 @@ const findCommentById = (commentId) => {
 const deleteCommentById = (commentId) => {
   return CommentModel.findOneAndDelete({ _id: commentId });
 };
+const deleteAllArticleComments = (articleId) => {
+  return commentModel.deleteMany({ article: articleId });
+};
 module.exports = {
   findArticleComments,
   findCommentById,
   createNewComment,
   deleteCommentById,
+  deleteAllArticleComments,
 };

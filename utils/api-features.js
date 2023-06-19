@@ -8,7 +8,7 @@ class apiFeatures {
   queryFields;
   constructor(
     modelQuery,
-    { filter, sort, page = 1, limit = 10, search, ...fields }
+    { sort, page = 1, limit = 10, search, fields, ...filter }
   ) {
     this.modelQuery = modelQuery;
     this.filter = filter;
@@ -40,6 +40,16 @@ class apiFeatures {
       this.modelQuery = this.modelQuery.find({
         title: { $regex: this.searchTitle, $options: "i" },
       });
+    }
+    return this;
+  }
+
+  projection() {
+    if (!!this.fields) {
+      const keys = this.fields.split(",").push("-__v").join(" ");
+      this.modelQuery = this.modelQuery.select(keys);
+    } else {
+      this.modelQuery = this.modelQuery.select("-__v");
     }
     return this;
   }

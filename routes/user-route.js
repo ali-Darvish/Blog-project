@@ -21,10 +21,13 @@ const {
 const {
   isSignedIn,
 } = require("../middlewares/validators/auth/isSignedIn-validation");
+const {
+  isAdmin,
+} = require("../middlewares/validators/admin/isAdmin-validator");
 
 const router = express.Router();
-router.get("/", getAllUsers);
-router.get("/:id", existUserValidator, getUserById);
+router.get("/", isSignedIn, isAdmin, getAllUsers);
+router.get("/:id", isSignedIn, existUserValidator, getUserById);
 router.patch(
   "/:id",
   isSignedIn,

@@ -1,6 +1,7 @@
-function CreateCommentDto({ text, article }) {
+function CreateCommentDto({ text, article, author }) {
   this.text = text;
   this.article = article;
+  this.author = author;
 }
 
 function UpdateCommentDto({ text }) {

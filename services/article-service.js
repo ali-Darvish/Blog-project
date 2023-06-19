@@ -4,6 +4,7 @@ const Article = require("../database/models/article-model");
 const { join } = require("node:path");
 const { unlink } = require("node:fs/promises");
 const { apiFeatures } = require("../utils/api-features");
+const articleModel = require("../database/models/article-model");
 
 const createNewArticle = (newArticleInfo) => {
   const newArticle = new Article(newArticleInfo);
@@ -45,6 +46,10 @@ const findArticleById = (articleId) => {
 
 const deleteArticleById = (articleId) => {
   return Article.findByIdAndDelete(articleId);
+};
+
+const deleteAllUserArticles = (userId) => {
+  return articleModel.deleteMany({ author: userId });
 };
 
 const normalizeThumbnail = async (file) => {
@@ -105,6 +110,7 @@ module.exports = {
   findUserArticleById,
   findArticleById,
   deleteArticleById,
+  deleteAllUserArticles,
   normalizeThumbnail,
   normalizeImages,
 };

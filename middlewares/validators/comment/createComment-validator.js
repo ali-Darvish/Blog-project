@@ -41,7 +41,7 @@ const createCommentValidator = async (req, res, next) => {
     res.locals.user = author;
     next();
   } catch (error) {
-    next(createError(500, "Internal Server Error"));
+    next(createError(500, "Internal Server Error" + error));
   }
 };
 

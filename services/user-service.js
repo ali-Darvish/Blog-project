@@ -1,17 +1,18 @@
 const Jimp = require("jimp");
 const { unlink } = require("node:fs/promises");
+const { join } = require("node:path");
 
 const User = require("../database/models/user-model");
 const { CreateUserDto } = require("../dto/user-dto");
-const { join } = require("node:path");
-
+const { apiFeatures } = require("../utils/api-features");
 const createNewUser = (newUserInfo) => {
   const newUser = new User(newUserInfo);
   return newUser.save();
 };
 
-const findAllUsers = () => {
-  return User.find({ username: { $ne: "admin" } });
+const findAllUsers = (queryString) => {
+  const usersModel = new apiFeatures(User.find(), queryString).paginate().sort().projection();
+  return usersModel.modelQuery;
 };
 
 const findUserById = (userId) => {

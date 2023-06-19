@@ -11,10 +11,15 @@ const {
   normalizeAvatar,
 } = require("../services/user-service");
 const { multerUpload } = require("../utils/multer");
+const {
+  findAllUserArticles,
+  deleteAllUserArticles,
+} = require("../services/article-service");
+const { deleteAllArticleComments } = require("../services/comment-service");
 
 const getAllUsers = async (req, res, next) => {
   try {
-    const users = await findAllUsers();
+    const users = await findAllUsers(req.query);
     if (!users.length) {
       return next(createError(404, "Users not found."));
     }
@@ -122,6 +127,11 @@ const changeUserAvatar = async (req, res, next) => {
 const deleteUser = async (req, res, next) => {
   try {
     req.session.destroy();
+    const userArticles = await findAllUserArticles(res.locals.user._id);
+    for (const article of userArticles) {
+      await deleteAllArticleComments(article._id);
+    }
+    await deleteAllUserArticles(res.locals.user._id);
     const result = await deleteUserById(res.locals.user._id);
     return res
       .status(204)

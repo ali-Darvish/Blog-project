@@ -19,7 +19,8 @@ const {
   existCommentValidator,
 } = require("../middlewares/validators/comment/existComment-validator");
 const {
-  hasCommentPermission,
+  updateCommentPermission,
+  deleteCommentPermission,
 } = require("../middlewares/validators/comment/hasCommentPermission-validator");
 const {
   updateCommentValidator,
@@ -34,7 +35,7 @@ router.patch(
   "/:id",
   isSignedIn,
   existCommentValidator,
-  hasCommentPermission,
+  updateCommentPermission,
   updateCommentValidator,
   updateComment
 );
@@ -43,7 +44,7 @@ router.delete(
   "/:id",
   isSignedIn,
   existCommentValidator,
-  hasCommentPermission,
+  deleteCommentPermission,
   deleteComment
 );
 
