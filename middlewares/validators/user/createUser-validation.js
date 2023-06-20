@@ -40,21 +40,21 @@ const createUserValidator = async (req, res, next) => {
       );
     }
 
-    const duplicatePhoneNumber = await findUserByPhoneNumber(
-      req.body.phoneNumber
-    );
-    if (!!duplicatePhoneNumber) {
-      return next(
-        createError(
-          409,
-          `${duplicatePhoneNumber.phoneNumber} already taken before.`
-        )
-      );
+    for (const phone of req.body.phoneNumber) {
+      const duplicatePhoneNumber = await findUserByPhoneNumber(phone);
+      if (!!duplicatePhoneNumber) {
+        return next(
+          createError(
+            409,
+            `${duplicatePhoneNumber.phoneNumber} already taken before.`
+          )
+        );
+      }
     }
     res.locals.user = newUserInfo;
     next();
   } catch (error) {
-    next(createError(500, "Internal Server Error"));
+    next(createError(500, "Internal Server Error" + error.message));
   }
 };
 

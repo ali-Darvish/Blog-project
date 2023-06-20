@@ -11,7 +11,10 @@ const createNewUser = (newUserInfo) => {
 };
 
 const findAllUsers = (queryString) => {
-  const usersModel = new apiFeatures(User.find(), queryString).paginate().sort().projection();
+  const usersModel = new apiFeatures(User.find(), queryString)
+    .paginate()
+    .sort()
+    .projection();
   return usersModel.modelQuery;
 };
 
@@ -24,6 +27,10 @@ const findUserByUsername = (username) => {
 };
 
 const findUserByPhoneNumber = (phoneNumber) => {
+  phoneNumber = phoneNumber.startsWith("0")
+    ? "+98" + phoneNumber.slice(1)
+    : phoneNumber;
+
   return User.findOne({ phoneNumber });
 };
 

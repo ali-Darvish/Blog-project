@@ -48,7 +48,6 @@ const UserSchema = new Schema(
       type: [String],
       unique: true,
       required: true,
-      validate: /^(0|\+98)9\d{9}$/,
     },
     role: {
       type: String,
@@ -75,6 +74,16 @@ UserSchema.pre("save", async function (next) {
   try {
     const salt = await genSalt(10);
     this.password = await hash(this.password, salt);
+
+    this.phoneNumber = this.phoneNumber.map((pNumber) => {
+      if (pNumber.startsWith("0")) {
+        return "+98" + pNumber.slice(1);
+      }
+      return pNumber;
+    });
+
+    this.phoneNumber = Array.from(new Set(this.phoneNumber));
+
     return next();
   } catch (error) {
     next(new createError(500, `user pre save >` + error?.message));
