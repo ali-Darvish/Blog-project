@@ -18,35 +18,27 @@ const {
 const {
   updateUserPasswordValidator,
 } = require("../middlewares/validators/user/updateUserPassword-validation");
-const {
-  isSignedIn,
-} = require("../middlewares/validators/auth/isSignedIn-validation");
+
 const {
   isAdmin,
 } = require("../middlewares/validators/admin/isAdmin-validator");
 
 const router = express.Router();
-router.get("/", isSignedIn, isAdmin, getAllUsers);
-router.get("/:id", isSignedIn, existUserValidator, getUserById);
-router.patch(
-  "/:id",
-  isSignedIn,
-  existUserValidator,
-  updateUserValidator,
-  updateUser
-);
+
+router.get("/", isAdmin, getAllUsers);
+
+router.get("/:id", existUserValidator, getUserById);
+router.patch("/:id", existUserValidator, updateUserValidator, updateUser);
 router.delete("/:id", existUserValidator, deleteUser);
 
 router.patch(
   "/password/:id",
-  isSignedIn,
   existUserValidator,
   updateUserPasswordValidator,
   changeUserPassword
 );
 router.post(
   "/avatar/:id",
-  isSignedIn,
   existUserValidator,
   uploadUserAvatar,
   changeUserAvatar

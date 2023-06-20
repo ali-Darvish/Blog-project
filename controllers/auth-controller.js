@@ -25,7 +25,7 @@ const userSignIn = async (req, res, next) => {
 
 const userSignOut = (req, res, next) => {
   req.session.destroy();
-  res.status(204).redirect("http://localhost:3000/auth");
+  res.status(204).json(new ResponseDto("success", "Signed out successfully."));
 };
 
 const checkUserPassword = async (req, res, next) => {

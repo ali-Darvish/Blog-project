@@ -19,11 +19,20 @@ function UpdateUserDto({
   lastname = null,
   username = null,
   gender = "not-set",
+  phoneNumber,
 }) {
   if (!!firstname) this.firstname = firstname;
   if (!!lastname) this.lastname = lastname;
   if (!!username) this.username = username;
   if (!!gender) this.gender = gender;
+  if (!!phoneNumber) {
+    this.phoneNumber = phoneNumber.map((phone) => {
+      if (phone.startsWith("0")) {
+        return `+98${phone.slice(1)}`;
+      }
+      return phone;
+    });
+  }
 }
 
 function UpdateUserPasswordDto({ currentPassword, newPassword }) {

@@ -2,10 +2,7 @@ const Joi = require("joi");
 const createError = require("http-errors");
 
 const { UserSignInDto } = require("../../../dto/auth-dto");
-const {
-  findUserByUsername,
-  findUserByPhoneNumber,
-} = require("../../../services/user-service");
+const { findUserByUsername } = require("../../../services/user-service");
 
 const userSignInValidationSchema = Joi.object({
   username: Joi.string().required().trim().min(3).max(30),
@@ -13,19 +10,19 @@ const userSignInValidationSchema = Joi.object({
 });
 
 const userSignInValidator = async (req, res, next) => {
-  const signInInfo = new UserSignInDto(req.body);
-  const { error } = userSignInValidationSchema.validate(signInInfo, {
-    abortEarly: false,
-  });
-
-  if (!!error) {
-    const errorMessages = error.details
-      .map((error) => error.message)
-      .join("\n");
-    return next(createError(400, errorMessages));
-  }
-
   try {
+    const signInInfo = new UserSignInDto(req.body);
+    const { error } = userSignInValidationSchema.validate(signInInfo, {
+      abortEarly: false,
+    });
+
+    if (!!error) {
+      const errorMessages = error.details
+        .map((error) => error.message)
+        .join("\n");
+      return next(createError(400, errorMessages));
+    }
+
     const targetUser = await findUserByUsername(signInInfo.username);
     if (!targetUser) {
       return next(createError(401, `Username or password doesn't match.`));

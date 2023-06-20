@@ -65,13 +65,14 @@ const createUser = async (req, res, next) => {
 };
 
 const updateUser = async (req, res, next) => {
+  try {
   const targetUser = res.locals.user;
   const updatedInfo = new UpdateUserDto(req.body);
   targetUser.firstname = updatedInfo.firstname ?? targetUser.firstname;
   targetUser.lastname = updatedInfo.lastname ?? targetUser.lastname;
   targetUser.username = updatedInfo.username ?? targetUser.username;
   targetUser.gender = updatedInfo.gender ?? targetUser.gender;
-  try {
+  targetUser.phoneNumber = updatedInfo.phoneNumber ?? targetUser.phoneNumber;
     const result = await targetUser.save();
     res
       .status(200)
