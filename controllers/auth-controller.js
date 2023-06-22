@@ -36,7 +36,7 @@ const checkUserPassword = async (req, res, next) => {
   }
   const targetUser = await findUserById(id);
   if (!targetUser) {
-    return next(404, "User not found");
+    return next(createError(404, "User not found"));
   }
   const isMatch = await targetUser.validatePassword(currentPassword);
   if (!isMatch) {

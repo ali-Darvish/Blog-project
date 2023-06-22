@@ -11,6 +11,7 @@ const updateUserPasswordValidationSchema = Joi.object({
 });
 
 const updateUserPasswordValidator = async (req, res, next) => {
+  try {
   const updatePasswordInfo = new UpdateUserPasswordDto(req.body);
   const { error } = updateUserPasswordValidationSchema.validate(
     updatePasswordInfo,
@@ -24,7 +25,6 @@ const updateUserPasswordValidator = async (req, res, next) => {
       .join("\n");
     return next(createError(400, errorMessages));
   }
-  try {
     const targetUser = res.locals.user;
     const isPasswordMatch = await targetUser.validatePassword(
       updatePasswordInfo.currentPassword

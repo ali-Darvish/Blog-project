@@ -43,12 +43,7 @@ const createUserValidator = async (req, res, next) => {
     for (const phone of req.body.phoneNumber) {
       const duplicatePhoneNumber = await findUserByPhoneNumber(phone);
       if (!!duplicatePhoneNumber) {
-        return next(
-          createError(
-            409,
-            `${duplicatePhoneNumber.phoneNumber} already taken before.`
-          )
-        );
+        return next(createError(409, `${phone} already taken before.`));
       }
     }
     res.locals.user = newUserInfo;

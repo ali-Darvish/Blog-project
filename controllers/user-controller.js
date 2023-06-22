@@ -1,5 +1,5 @@
 const createError = require("http-errors");
-const { unlink } = require("node:fs/promises");
+const { unlink, access } = require("node:fs/promises");
 const { join } = require("node:path");
 
 const { ReadUserDto, UpdateUserDto } = require("../dto/user-dto");
@@ -46,6 +46,7 @@ const getUserById = async (req, res, next) => {
       )
     );
 };
+
 const createUser = async (req, res, next) => {
   try {
     const result = await createNewUser(res.locals.user);
@@ -109,7 +110,7 @@ const changeUserAvatar = async (req, res, next) => {
   try {
     const avatarFileName = await normalizeAvatar(req.file);
     const targetUser = res.locals.user;
-
+    
     if (targetUser.avatar !== "user-default-avatar.png") {
       await unlink(
         join(__dirname, "..", "public", "images", "avatars", targetUser.avatar)

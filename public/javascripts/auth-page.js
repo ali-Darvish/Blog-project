@@ -193,20 +193,19 @@ $("#signin-btn").on("click", async function () {
     password: $("#login-password").val() ?? null,
   };
   try {
-    const loginResponse = await axios.post(
-      "http://localhost:3000/api/auth/signin",
-      loginData
-    );
+    const loginResponse = await axios.post("/api/auth/signin", loginData);
     $("#login-username").val("");
     $("#login-password").val("");
     renderResponseSuccessMsg("Success", loginResponse.data.message);
     setTimeout(() => {
-      location.href = "http://localhost:3000/dashboard";
+      location.pathname = "dashboard";
     }, 1000);
   } catch (error) {
-    renderResponseError(error.response.statusText, error.response.data.message);
+    renderResponseError(
+      error?.response?.statusText,
+      error?.response?.data?.message
+    );
   }
-  // switch(loginResponse.response.statys)
 });
 
 $("#signup-btn").on("click", async function () {
@@ -219,18 +218,15 @@ $("#signup-btn").on("click", async function () {
     lastname: $("#lastname").val() ?? null,
     username: $("#username").val() ?? null,
     password: $("#password").val() ?? null,
-    phoneNumber: $("#phoneNumber").val() ?? null,
+    phoneNumber: [$("#phoneNumber").val() ?? null],
     gender: $("#gender").val() ?? null,
   };
   try {
-    const signUpResponse = await axios.post(
-      "http://localhost:3000/api/auth/register",
-      loginData
-    );
+    const signUpResponse = await axios.post("/api/auth/register", loginData);
     $("#register-form-card input").val("");
     renderResponseSuccessMsg("Success", signUpResponse.data.message);
     setTimeout(() => {
-      location.href = "http://localhost:3000/dashboard";
+      location.pathname = "dashboard";
     }, 1000);
   } catch (error) {
     console.log(error);
