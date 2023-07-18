@@ -507,3 +507,18 @@ const renderMyDashboard = () => {
   $("#my-articles-container").fadeOut(500);
   $("#dashboard-content").fadeIn(500);
 };
+
+const userSignout = async () => {
+  try {
+    await axios.get("/api/auth/signout");
+    renderResponseSuccessMsg("Success", "Signed out successfully");
+    setTimeout(() => {
+      location.pathname = "auth";
+    }, 1000);
+  } catch (error) {
+    return renderResponseError(
+      error?.response?.data?.status,
+      error?.response?.data?.message
+    );
+  }
+};

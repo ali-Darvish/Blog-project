@@ -16,7 +16,8 @@ const findAllArticles = (queryString) => {
   const articleModel = new apiFeatures(Article.find(), queryString)
     .sort()
     .paginate()
-    .search();
+    .search()
+    .projection();
   return articleModel.modelQuery;
 };
 
